@@ -102,6 +102,23 @@ const Dashboard: React.FC = () => {
   const handleEntryClick = useCallback((type: FlightType) => (e: React.MouseEvent) => {
     setFlightType(type);
     modalEntry.current?.present();
+
+    setDate('');
+    setRegistration('');
+    setType('');
+    setNature('');
+    setComplianceYes(false);
+    setComplianceNo(false);
+    setCompliance('');
+    setReason('');
+    setTime('');
+    setLeftFuel(0);
+    setRightFuel(0);
+    setTotalFuel(0);
+    setNextIns('');
+    setTachTime('');
+    setAmoNo('');
+    setMechanic('');
   }, []);
 
   const handleEntryClose = useCallback(() => {
@@ -135,6 +152,7 @@ const Dashboard: React.FC = () => {
     }));
 
     modalEntry.current?.dismiss();
+    modalFab.current?.dismiss();
   }, [flightType, user.username, date, registration, type, nature, compliance, reason, time, leftFuel, rightFuel, totalFuel, nextIns, tachTime, amoNo, mechanic]);
 
   return (
