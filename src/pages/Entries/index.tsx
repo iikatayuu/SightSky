@@ -31,7 +31,7 @@ const Entries: React.FC = () => {
 
         <div className="d-flex flex-wrap mx-4 mb-3">
           {
-            entries.entries.reverse().map((entry, i) => (
+            [...entries.entries].reverse().map((entry, i) => (
               <CardEntry entry={entry} key={i} />
             ))
           }
