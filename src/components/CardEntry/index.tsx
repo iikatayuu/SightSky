@@ -37,9 +37,6 @@ const CardEntry: React.FC<CardEntryProps> = (props) => {
     let gapUnit = '';
     let gap = 0;
 
-    console.log(dateA, dateB);
-    console.log(diff);
-
     if (diff > 86400) {
       gap = Math.floor(diff / 86400);
       gapUnit = 'day' + (gap > 1 ? 's' : '');
