@@ -1,0 +1,31 @@
+
+.dashboard-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/assets/background.jpg");
+  background-color: rgba(0, 0, 0, 0.4);
+  background-position: center;
+  background-size: cover;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.dashboard-name {
+  font-size: 24px;
+}
+
+.dashboard-temp {
+  font-size: 20px;
+}
+
+#dashboard-fab {
+  --background: var(--color-secondary);
+  --color: var(--color-secondary-contrast);
+}
+
+.entry-compliance-text {
+  font-weight: bold;
+}

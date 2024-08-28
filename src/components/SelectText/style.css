@@ -1,0 +1,6 @@
+
+.select-text-save {
+  position: absolute;
+  bottom: calc(100vh * 0.4 - 5px);
+  width: 100vw;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "SightSky",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

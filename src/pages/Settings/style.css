@@ -1,0 +1,8 @@
+
+.settings-name {
+  font-size: 18px;
+}
+
+.settings-content {
+  min-height: calc(100vh - 72px);
+}

@@ -1,0 +1,26 @@
+
+.register-banner {
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  width: 100%;
+  height: 120px;
+}
+
+.register-banner a {
+  color: #fff;
+}
+
+.register-form {
+  width: 100%;
+  height: calc(100vh - 120px);
+  padding: 64px 56px;
+  background-color: var(--color-light);
+  color: var(--color-light-contrast);
+  border-top-left-radius: 76px;
+}
+
+.register-form h1 {
+  line-height: 1;
+  font-size: 32px;
+}

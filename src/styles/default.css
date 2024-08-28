@@ -1,0 +1,131 @@
+
+:root {
+  --bg-secondary: rgba(143, 142, 142, .38);
+  --bg-secondary-contrast: #4d4c4c;
+
+  --color-secondary: #2a364e;
+  --color-secondary-contrast: #fff;
+
+  --color-dark: #1f1f1f;
+  --color-dark-contrast: #fff;
+  --color-dark-border: #252525;
+
+  --color-gray: #252525;
+  --color-gray-contrast: #fff;
+  --color-gray-contrast-rgb: 255,255,255;
+  --color-gray-border: #3b3b3b;
+
+  --color-gray-2: #bfbfbf;
+  --color-gray-3: #8a8a8a;
+
+  --color-light: #fff;
+  --color-light-contrast: #1c2120;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(33, 37, 41, 0.75);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+
+hr {
+  border-color: var(--color-gray-border);
+  border-width: 2.5px;
+}
+
+.text-sm {
+  font-size: 12px;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-light {
+  color: var(--color-light);
+}
+
+.text-gray-2 {
+  color: var(--color-gray-2);
+}
+
+.form-control {
+  border-radius: 16px;
+  padding: 12px 16px;
+  background-color: var(--bg-secondary);
+  color: var(--bg-secondary-contrast);
+}
+
+.form-control:focus {
+  background-color: var(--color-gray-border);
+  color: var(--color-dark-contrast);
+}
+
+.form-control-dark {
+  background-color: var(--color-gray-border);
+  color: rgba(var(--color-gray-contrast-rgb), 0.65);
+}
+
+.form-control-dark {
+  background-color: var(--color-gray-border);
+  color: rgba(var(--color-gray-contrast-rgb), 0.65);
+}
+
+.btn {
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.btn-dark {
+  background-color: var(--color-light-contrast);
+}
+
+.btn-dark-2 {
+  background-color: var(--color-gray-border);
+  color: var(--color-gray-contrast);
+}
+
+.btn-dark-3 {
+  background-color: var(--color-dark);
+  color: var(--color-dark-contrast);
+  border-color: var(--color-gray-border);
+}
+
+.card-dark {
+  background-color: var(--color-dark);
+  color: var(--color-dark-contrast);
+  border-color: var(--color-dark-border);
+}
+
+.card-gray {
+  background-color: var(--color-gray);
+  color: var(--color-gray-contrast);
+  border-color: var(--color-gray-border);
+}
+
+.list-group-dark .list-group-item {
+  background-color: var(--color-gray-dark);
+  border-color: var(--color-gray-border);
+  color: var(--color-dark-contrast);
+}
+
+.list-group-dark .list-group-item:hover {
+  background-color: var(--color-gray-border);
+}
+
+.icon-xl {
+  font-size: 32px;
+}
+
+.rotate-90 {
+  transform: rotate(180deg);
+}
+
+.action-sheet-button {
+  background-color: var(--color-gray) !important;
+  color: var(--color-dark-contrast) !important;
+}
