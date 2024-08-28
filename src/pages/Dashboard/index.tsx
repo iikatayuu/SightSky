@@ -41,6 +41,7 @@ const Dashboard: React.FC = () => {
   const [tachTime, setTachTime] = useState<string>('');
   const [amoNo, setAmoNo] = useState<string>('');
   const [mechanic, setMechanic] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const canvas = React.createRef<ReactSketchCanvasRef>();
   const modalFab = useRef<HTMLIonModalElement>(null);
   const modalEntry = useRef<HTMLIonModalElement>(null);
@@ -119,42 +120,49 @@ const Dashboard: React.FC = () => {
     setTachTime('');
     setAmoNo('');
     setMechanic('');
+    setError('');
   }, []);
 
   const handleEntryClose = useCallback(() => {
     modalEntry.current?.dismiss();
   }, []);
 
-  const handleEntrySubmit = useCallback(async (e: React.FormEvent) => {
+  const handleEntrySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     if (flightType === null) return;
 
-    dispatch(addRegistration(registration));
-    dispatch(addNextIn(nextIns));
-    dispatch(addEntry({
-      flightType,
-      submitter: user.username,
-      date,
-      registration,
-      type,
-      nature,
-      compliance: compliance === '1',
-      reason,
-      time,
-      leftFuel,
-      rightFuel,
-      totalFuel,
-      nextins: nextIns,
-      tachTime,
-      amoNo,
-      mechanic,
-      signature: await canvas.current?.exportImage('png') || ''
-    }));
+    const signature = await canvas.current?.exportImage('png');
+    const sketchingTime = await canvas.current?.getSketchingTime() ?? 0;
+    if (signature && sketchingTime > 0) {
+      dispatch(addRegistration(registration));
+      dispatch(addNextIn(nextIns));
+      dispatch(addEntry({
+        flightType,
+        submitter: user.username,
+        date,
+        registration,
+        type,
+        nature,
+        compliance: compliance === '1',
+        reason,
+        time,
+        leftFuel,
+        rightFuel,
+        totalFuel,
+        nextins: nextIns,
+        tachTime,
+        amoNo,
+        mechanic,
+        signature
+      }));
 
-    modalEntry.current?.dismiss();
-    modalFab.current?.dismiss();
-  }, [flightType, user.username, date, registration, type, nature, compliance, reason, time, leftFuel, rightFuel, totalFuel, nextIns, tachTime, amoNo, mechanic]);
+      modalEntry.current?.dismiss();
+      modalFab.current?.dismiss();
+    } else {
+      setError('Please sign');
+    }
+  };
 
   return (
     <IonPage id="dashboard">
@@ -250,7 +258,7 @@ const Dashboard: React.FC = () => {
 
               <div className="form-group mb-3">
                 <label htmlFor="entry-registration" className="mb-2">Aircraft Registration</label>
-                <SelectText id="entry-registration" name="registration" className="form-control form-control-dark" value={registration} options={entries.registrations} onValueChange={setRegistration} />
+                <SelectText id="entry-registration" name="registration" className="form-control form-control-dark" value={registration} options={entries.registrations} onValueChange={setRegistration} required />
               </div>
 
               <div className="form-group mb-3">
@@ -282,7 +290,7 @@ const Dashboard: React.FC = () => {
 
               <div className="form-group mb-3">
                 <label htmlFor="entry-reason" className="mb-2">Reason</label>
-                <textarea id="entry-reason" name="reason" className="form-control form-control-dark" rows={5} value={reason} onChange={handleInputChange(setReason)}></textarea>
+                <textarea id="entry-reason" name="reason" className="form-control form-control-dark" rows={5} value={reason} onChange={handleInputChange(setReason)} required></textarea>
               </div>
 
               <div className="form-group mb-3">
@@ -310,7 +318,7 @@ const Dashboard: React.FC = () => {
 
               <div className="form-group mb-3">
                 <label htmlFor="entry-nextins" className="mb-2">Next Inspection</label>
-                <SelectText id="entry-nextins" name="nextins" className="form-control form-control-dark" value={nextIns} options={entries.nextIns} onValueChange={setNextIns} />
+                <SelectText id="entry-nextins" name="nextins" className="form-control form-control-dark" value={nextIns} options={entries.nextIns} onValueChange={setNextIns} required />
               </div>
 
               <div className="form-group mb-3">
@@ -330,8 +338,12 @@ const Dashboard: React.FC = () => {
 
               <div className="form-group mb-3">
                 <label htmlFor="entry-signature">Mechanic's Signature for Release</label>
-                <ReactSketchCanvas ref={canvas} strokeWidth={5} strokeColor="black" />
+                <ReactSketchCanvas ref={canvas} strokeWidth={5} strokeColor="black" withTimestamp />
               </div>
+
+              { error && (
+                <div className="alert alert-danger" role="alert">{ error }</div>
+              )}
 
               <div className="d-grid gap-2 mt-5 mb-3">
                 <button type="submit" className="btn btn-success mb-3">RELEASE</button>
