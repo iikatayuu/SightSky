@@ -22,6 +22,7 @@ const Register: React.FC = () => {
 
   const handleSubmit = useCallback(async (event: React.FormEvent) => {
     event.preventDefault();
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     dispatch(clearUserError());
     dispatch(register({ name, username, password, bdate }));
   }, [name, username, password, bdate]);

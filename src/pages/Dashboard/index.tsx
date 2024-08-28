@@ -127,6 +127,7 @@ const Dashboard: React.FC = () => {
 
   const handleEntrySubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     if (flightType === null) return;
 
     dispatch(addRegistration(registration));
