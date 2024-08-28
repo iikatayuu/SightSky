@@ -41,9 +41,9 @@ const Register: React.FC = () => {
           <Link to="/" onClick={handleBack(history)}><IonIcon icon={arrowBack} size="large" /></Link>
         </div>
 
-        <form className="register-form" action="/" method="post" onSubmit={handleSubmit}>
-          <h1 className="text-center">Create New Account</h1>
-          <div className="text-center mb-5">
+        <form className="register-form px-5" action="/" method="post" onSubmit={handleSubmit}>
+          <h1 className="text-center pt-5">Create New Account</h1>
+          <div className="text-center mb-3">
             <Link to="/" onClick={handleBack(history)} className="text-sm text-muted">Already Registered? Log in here.</Link>
           </div>
 
@@ -74,7 +74,7 @@ const Register: React.FC = () => {
             <div className="alert alert-danger" role="alert">{ user.error }</div>
           )}
 
-          <div className="d-grid gap-2">
+          <div className="d-grid gap-2 pb-3">
             <button type="submit" className="btn btn-dark">Sign up</button>
           </div>
         </form>

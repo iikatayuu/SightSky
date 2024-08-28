@@ -34,8 +34,8 @@ const Login: React.FC = () => {
           <img src="/assets/logo.png" alt="SightSky Logo" width={100} height={100} />
         </div>
 
-        <form className="login-form" action="/" method="post" onSubmit={handleSubmit}>
-          <h1 className="text-center">Login</h1>
+        <form className="login-form px-5" action="/" method="post" onSubmit={handleSubmit}>
+          <h1 className="text-center pt-5">Login</h1>
           <div className="text-center text-muted mt-2 mb-2">Sign in to continue</div>
 
           <div className="form-group mb-2">
@@ -56,11 +56,11 @@ const Login: React.FC = () => {
             <button type="submit" className="btn btn-dark">Log in</button>
           </div>
 
-          <div className="text-center mt-5 mb-1">
+          <div className="text-center mt-3 mb-1">
             <a href="#" className="text-sm">Forgot Password?</a>
           </div>
 
-          <div className="text-center">
+          <div className="text-center pb-3">
             <Link to="/register" className="text-sm">Create An Account</Link>
           </div>
         </form>
