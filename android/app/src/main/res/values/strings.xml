@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">SightSky</string>
+    <string name="title_activity_main">SightSky</string>
+    <string name="package_name">com.alanchen.sightsky</string>
+    <string name="custom_url_scheme">com.alanchen.sightsky</string>
+</resources>
