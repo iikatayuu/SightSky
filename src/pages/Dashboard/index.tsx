@@ -128,10 +128,6 @@ const Dashboard: React.FC = () => {
     modalEntry.current?.dismiss();
   }, []);
 
-  const clearCanvas = useCallback(() => {
-    canvas.current?.clearCanvas();
-  }, []);
-
   const handleEntrySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
@@ -349,7 +345,7 @@ const Dashboard: React.FC = () => {
                   borderRadius: '0.25rem 0.25rem 0 0'
                 }} withTimestamp />
                 <div className="d-grid gap-2">
-                  <button type="button" className="btn btn-danger btn-footer" onClick={clearCanvas}>Clear</button>
+                  <button type="button" className="btn btn-danger btn-footer" onClick={() => canvas.current?.clearCanvas()}>Clear</button>
                 </div>
               </div>
 
