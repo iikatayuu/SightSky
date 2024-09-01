@@ -208,14 +208,14 @@ const Dashboard: React.FC = () => {
                 <div className="flex-fill text-center">Settings</div>
               </div>
             </div>
-           </Link>
+          </Link>
         </div>
 
         <hr className="mx-4" />
 
         <div className="d-flex align-items-center justify-content-between mx-4 mb-3">
           <h4 className="text-sm mb-0">Past entries</h4>
-          <Link to="/entries" className="text-light text-underline text-sm">See All</Link>
+          <Link to="/entries" className="text-light text-underline text-sm px-3 py-2">See All</Link>
         </div>
 
         <div className="d-flex flex-wrap mx-4 mb-3">
