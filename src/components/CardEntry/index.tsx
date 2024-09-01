@@ -9,18 +9,18 @@ export interface CardEntryProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
   'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
 ];
 
 const CardEntry: React.FC<CardEntryProps> = (props) => {
