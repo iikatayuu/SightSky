@@ -97,6 +97,11 @@ hr {
   border-color: var(--color-gray-border);
 }
 
+.btn-footer {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .card-dark {
   background-color: var(--color-dark);
   color: var(--color-dark-contrast);

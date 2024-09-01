@@ -128,6 +128,10 @@ const Dashboard: React.FC = () => {
     modalEntry.current?.dismiss();
   }, []);
 
+  const clearCanvas = useCallback(() => {
+    canvas.current?.clearCanvas();
+  }, []);
+
   const handleEntrySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
@@ -340,7 +344,13 @@ const Dashboard: React.FC = () => {
 
               <div className="form-group mb-3">
                 <label htmlFor="entry-signature">Mechanic's Signature for Release</label>
-                <ReactSketchCanvas ref={canvas} strokeWidth={5} strokeColor="black" withTimestamp />
+                <ReactSketchCanvas ref={canvas} strokeWidth={5} strokeColor="black" style={{
+                  border: '0.0625rem solid rgb(156, 156, 156)',
+                  borderRadius: '0.25rem 0.25rem 0 0'
+                }} withTimestamp />
+                <div className="d-grid gap-2">
+                  <button type="button" className="btn btn-danger btn-footer" onClick={clearCanvas}>Clear</button>
+                </div>
               </div>
 
               { error && (
