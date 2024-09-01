@@ -1,30 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import type { Entry } from '../../features/entries/types';
+import { MONTHS } from '../../utils/date';
 
 import './style.css';
 
 export interface CardEntryProps extends React.HTMLAttributes<HTMLElement> {
+  id: string;
   entry: Entry;
 }
 
-const MONTHS = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-];
-
 const CardEntry: React.FC<CardEntryProps> = (props) => {
-  const { entry } = props;
+  const { id, entry } = props;
   const [gap, setGap] = useState<string>('');
   const [dateStr, setDateStr] = useState<string>('');
 
@@ -60,16 +48,18 @@ const CardEntry: React.FC<CardEntryProps> = (props) => {
 
   return (
     <div className="col-6 px-1 py-1">
-      <div className="card card-gray">
-        <div className="card-body">
-          <div className="card-entry-img rounded-circle d-inline-block mb-4">
-            <img src="/assets/airplane.png" alt="Airplane" width={24} height={24} />
-          </div>
+      <Link to={`/entry/${id}`}>
+        <div className="card card-gray card-entry">
+          <div className="card-body">
+            <div className="card-entry-img rounded-circle d-inline-block mb-4">
+              <img src="/assets/airplane.png" alt="Airplane" width={24} height={24} />
+            </div>
 
-          <h3 className="card-entry-date mb-0">{ dateStr }</h3>
-          <p className="text-sm mb-0">{ gap }</p>
+            <h3 className="card-entry-date mb-0">{ dateStr }</h3>
+            <p className="text-sm mb-0">{ gap }</p>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

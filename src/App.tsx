@@ -12,6 +12,7 @@ import Register from './pages/Register/';
 import Dashboard from './pages/Dashboard/';
 import Settings from './pages/Settings/';
 import Entries from './pages/Entries/';
+import Entry from './pages/Entry/';
 
 import '@ionic/react/css/core.css';
 
@@ -38,6 +39,7 @@ const App: React.FC = () => {
           <Route exact path="/dashboard" render={() => !isLogged ? <Redirect to="/" /> : <Dashboard /> } />
           <Route exact path="/settings" render={() => !isLogged ? <Redirect to="/" /> : <Settings /> } />
           <Route exact path="/entries" render={() => !isLogged ? <Redirect to="/" /> : <Entries /> } />
+          <Route exact path="/entry/:id" render={() => !isLogged ? <Redirect to="/" /> : <Entry /> } />
           <Route render={() => <Redirect to="/" />} />
         </IonRouterOutlet>
       </IonReactRouter>

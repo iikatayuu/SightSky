@@ -221,7 +221,7 @@ const Dashboard: React.FC = () => {
         <div className="d-flex flex-wrap mx-4 mb-3">
           {
             [...entries.entries].reverse().slice(0, 6).map((entry, i) => (
-              <CardEntry entry={entry} key={i} />
+              <CardEntry id={(entries.entries.length - i - 1).toString()} entry={entry} key={i} />
             ))
           }
         </div>

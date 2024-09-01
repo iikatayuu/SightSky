@@ -1,4 +1,8 @@
 
+.card-entry:active {
+  border-color: #fff;
+}
+
 .card-entry-img {
   padding: 8px;
   background-color: var(--color-gray-3);

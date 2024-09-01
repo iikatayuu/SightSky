@@ -136,3 +136,7 @@ hr {
   background-color: var(--color-gray) !important;
   color: var(--color-dark-contrast) !important;
 }
+
+.ion-checkbox-text {
+  white-space: normal;
+}
