@@ -70,6 +70,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     if (flightType === null) {
       setEntryName('');
+      setEntryCompliance('');
     }
 
     if (flightType === 'preflight') {
@@ -297,7 +298,8 @@ const Dashboard: React.FC = () => {
                 <label htmlFor="entry-time" className="mb-2">Time in Zulu</label>
                 <Cleave id="entry-time" name="time" className="form-control form-control-dark" options={{
                   time: true,
-                  timePattern: ['h', 'm']
+                  timePattern: ['h', 'm'],
+                  delimiter: ''
                 }} value={time} onChange={handleInputChange(setTime)} required />
               </div>
 

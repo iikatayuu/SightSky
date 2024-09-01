@@ -31,7 +31,9 @@ const CardEntry: React.FC<CardEntryProps> = (props) => {
   useEffect(() => {
     const dateA = new Date();
     const timeA = Math.floor(dateA.getTime() / 1000);
-    const dateB = new Date(`${entry.date} ${entry.time}`);
+    const bHours = entry.time.toString().substring(0, 2);
+    const bMins = entry.time.toString().substring(2);
+    const dateB = new Date(`${entry.date} ${bHours}:${bMins}`);
     const timeB = Math.floor(dateB.getTime() / 1000);
     const diff = timeB - timeA;
     let gapUnit = '';
