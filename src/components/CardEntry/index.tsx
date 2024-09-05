@@ -13,37 +13,27 @@ export interface CardEntryProps extends React.HTMLAttributes<HTMLElement> {
 
 const CardEntry: React.FC<CardEntryProps> = (props) => {
   const { id, entry } = props;
-  const [gap, setGap] = useState<string>('');
   const [dateStr, setDateStr] = useState<string>('');
+  const [timeZulu, setTimeZulu] = useState<string>('');
+  const [flightType, setFlightType] = useState<string>('');
+
+  console.log(entry)
 
   useEffect(() => {
-    const dateA = new Date();
-    const timeA = Math.floor(dateA.getTime() / 1000);
     const bTimeStr = entry.time.toString();
     const bHours = bTimeStr.substring(0, 2);
     const bMins = bTimeStr.substring(bTimeStr.length > 4 ? 3 : 2);
     const dateB = new Date(`${entry.date} ${bHours}:${bMins}`);
-    const timeB = Math.floor(dateB.getTime() / 1000);
-    const diff = timeB - timeA;
-    let gapUnit = '';
-    let gap = 0;
-
-    if (diff > 86400) {
-      gap = Math.floor(diff / 86400);
-      gapUnit = 'day' + (gap > 1 ? 's' : '');
-    } else if (diff > 3600) {
-      gap = Math.floor(diff / 3600);
-      gapUnit = 'hour' + (gap > 1 ? 's' : '');
-    } else if (diff > 60) {
-      gap = Math.floor(diff / 60);
-      gapUnit = 'minute' + (gap > 1 ? 's' : '');
-    }
 
     const month = MONTHS[dateB.getMonth()];
     const day = dateB.getDate().toString().padStart(2, '0');
     const year = dateB.getFullYear();
-    setGap(`${gap} ${gapUnit}`);
     setDateStr(`${day} ${month} ${year}`);
+    setTimeZulu(`${bHours}${bMins}`);
+
+    if (entry.flightType === 'preflight') setFlightType('Preflight');
+    if (entry.flightType === 'transit') setFlightType('Transit');
+    if (entry.flightType === 'postflight') setFlightType('Postflight');
   }, []);
 
   return (
@@ -56,7 +46,8 @@ const CardEntry: React.FC<CardEntryProps> = (props) => {
             </div>
 
             <h3 className="card-entry-date mb-0">{ dateStr }</h3>
-            <p className="text-sm mb-0">{ gap }</p>
+            <p className="text-sm mb-0">{ timeZulu }</p>
+            <p className="text-sm mb-0">{ flightType }</p>
           </div>
         </div>
       </Link>
