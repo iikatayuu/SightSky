@@ -17,8 +17,6 @@ const CardEntry: React.FC<CardEntryProps> = (props) => {
   const [timeZulu, setTimeZulu] = useState<string>('');
   const [flightType, setFlightType] = useState<string>('');
 
-  console.log(entry)
-
   useEffect(() => {
     const bTimeStr = entry.time.toString();
     const bHours = bTimeStr.substring(0, 2);
