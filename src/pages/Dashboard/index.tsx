@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IonPage, IonContent, IonIcon, IonFab, IonFabButton, IonModal, IonSelect, IonSelectOption, IonCheckbox } from '@ionic/react';
 import { CapacitorHttp } from '@capacitor/core';
-import { add, person, settings } from 'ionicons/icons';
+import { add, settings } from 'ionicons/icons';
 import { ReactSketchCanvas, ReactSketchCanvasRef } from 'react-sketch-canvas';
 import Cleave from 'cleave.js/react';
 
@@ -12,6 +12,7 @@ import { addEntry, addNextIn, addRegistration, selectEntries } from '../../featu
 import type { FlightType } from '../../features/entries/types';
 import SelectText from '../../components/SelectText/';
 import CardEntry from '../../components/CardEntry/';
+import { MONTHS } from '../../utils/date';
 
 import './style.css';
 import { handleCheckboxChange, handleInputChange, handleInputNumberChange, handleSelectChange } from '../../utils/input';
@@ -22,6 +23,7 @@ const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
   const [greetings, setGreetings] = useState<string>('');
   const [temperature, setTemperature] = useState<number>(30);
+  const [currentDate, setCurrentDate] = useState<string>('');
   const [flightType, setFlightType] = useState<FlightType | null>(null);
   const [entryName, setEntryName] = useState<string>('');
   const [entryCompliance, setEntryCompliance] = useState<string>('');
@@ -53,6 +55,11 @@ const Dashboard: React.FC = () => {
     if (hrs >= 0 && hrs < 12) setGreetings('Good Morning!');
     if (hrs >= 12 && hrs < 18) setGreetings('Good Afternoon!');
     if (hrs >= 18 && hrs < 24) setGreetings('Good Evening!');
+
+    const month = MONTHS[date.getMonth()];
+    const day = date.getDate().toString().padStart(2, '0');
+    const year = date.getFullYear();
+    setCurrentDate(`${month} ${day}, ${year}`);
   }, []);
 
   useEffect(() => {
@@ -192,14 +199,11 @@ const Dashboard: React.FC = () => {
 
         <h2 className="mx-4 mb-4 text-sm">Welcome!</h2>
         <div className="row mx-4 mb-5">
-          <Link to="/profile" className="col-6 ps-0 pe-1">
-            <div className="card card-dark">
-              <div className="card-body d-flex align-items-center px-2 py-1">
-                <IonIcon icon={person} className="me-2 icon-xl" />
-                <div className="flex-fill text-center">Profile</div>
-              </div>
+          <div className="card card-dark col-6 ps-0 pe-1">
+            <div className="card-body d-flex align-items-center justify-content-center px-2 py-1">
+              { currentDate }
             </div>
-          </Link>
+          </div>
 
           <Link to="/settings" className="col-6 ps-1 pe-0">
             <div className="card card-gray">
