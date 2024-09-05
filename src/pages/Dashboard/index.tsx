@@ -176,7 +176,7 @@ const Dashboard: React.FC = () => {
             <h4 className="dashboard-name">{ user.name }</h4>
           </div>
 
-          <img src="/assets/user.jpg" alt={user.name} width={48} height={48} className="rounded-circle" />
+          <img src="/assets/logo.png" alt="SightSky Logo" width={48} height={48} className="rounded-circle" />
         </div>
 
         <div className="card card-dark mx-4 mb-4">
