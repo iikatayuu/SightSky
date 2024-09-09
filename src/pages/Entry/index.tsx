@@ -97,7 +97,7 @@ const Entry: React.FC = () => {
 
         <div className="form-group mx-4 mb-2">
           <label>Reason:</label>
-          <input type="text" className="form-control form-control-dark" value={entry.reason} readOnly />
+          <textarea className="form-control form-control-dark" rows={5} value={entry.reason} readOnly></textarea>
         </div>
 
         <div className="row mx-4 mb-2">
