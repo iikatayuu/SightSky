@@ -1,12 +1,15 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { IonCheckbox, IonContent, IonIcon, IonPage } from '@ionic/react';
+import { IonCheckbox, IonContent, IonIcon, IonPage, useIonAlert } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { FileOpener } from '@capacitor-community/file-opener';
 
 import { useAppSelector } from '../../app/hooks';
 import { selectEntries } from '../../features/entries/slice';
 import { handleBack } from '../../utils/nav';
 import { MONTHS } from '../../utils/date';
+import { getEntryCompliance, getPDF } from '../../utils/entry';
 
 interface EntryParams {
   id: string;
@@ -16,6 +19,7 @@ const Entry: React.FC = () => {
   const { id } = useParams() as EntryParams;
   const history = useHistory();
   const entriesState = useAppSelector(selectEntries);
+  const [presentAlert] = useIonAlert();
   const entryId = useMemo(() => parseInt(id), [id]);
   const entry = useMemo(() => entriesState.entries[entryId], [entriesState.entries]);
   const dateStr = useMemo(() => {
@@ -34,18 +38,41 @@ const Entry: React.FC = () => {
   }, [entry.time]);
 
   const entryCompliance = useMemo(() => {
-    if (entry.flightType === 'preflight') {
-      return 'Complied Pre-Flight Maint. Check in accordance with C172R/S Pre-Flight Maint. Check Form No. AICAT-AMO/AM/002 ISSUE 1 JUNE, REV DATE, 3 APRIL, 2021?';
-    }
-
-    if (entry.flightType === 'transit') {
-      return 'Complied in accordance with C172R/S Transit Check Form AICAT/AM/014 REV. DATE 0/FEB-2021 ISSUE DATE: FEB 2021?';
-    }
-
-    if (entry.flightType === 'postflight') {
-      return 'Complied Post-Flight Maint. Check as per C172R/S Post-Flight Maint. Check Form No. AICAT/AMO/AM/003 Issue. 1 June 2020 Rev. 3 April 2021?';
-    }
+    return getEntryCompliance(entry.flightType);
   }, [entry.flightType]);
+
+  const handlePdf = useCallback(async () => {
+    const idStr = (parseInt(id) + 1).toString().padStart(4, '0');
+    const bytes = await getPDF(idStr, entry);
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const filename = `aircraft-entry-${idStr}.pdf`;
+    const writeRes = await Filesystem.writeFile({
+      path: filename,
+      data: blob,
+      directory: Directory.Documents
+    });
+    
+    presentAlert({
+      header: 'Generated successfully!',
+      message: `Your document can be located at ${writeRes.uri}`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Open file',
+          handler: async () => {
+            await FileOpener.open({
+              filePath: writeRes.uri,
+              contentType: 'application/pdf',
+              openWithDefault: true
+            });
+          }
+        }
+      ]
+    });
+  }, [entry]);
 
   return (
     <IonPage>
@@ -143,6 +170,7 @@ const Entry: React.FC = () => {
         </div>
 
         <div className="d-grid grid-2 mx-4 mb-5">
+          <button type="button" className="btn btn-success mb-2" onClick={handlePdf}>Download PDF</button>
           <button type="button" className="btn btn-danger" onClick={handleBack(history)}>Back</button>
         </div>
       </IonContent>

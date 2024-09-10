@@ -12,6 +12,7 @@ import { addEntry, addNextIn, addRegistration, selectEntries } from '../../featu
 import type { FlightType } from '../../features/entries/types';
 import SelectText from '../../components/SelectText/';
 import CardEntry from '../../components/CardEntry/';
+import { getEntryCompliance } from '../../utils/entry';
 import { MONTHS } from '../../utils/date';
 
 import './style.css';
@@ -80,19 +81,17 @@ const Dashboard: React.FC = () => {
       setEntryCompliance('');
     }
 
+    setEntryCompliance(getEntryCompliance(flightType!));
     if (flightType === 'preflight') {
       setEntryName('New Pre-Flight Maint. Entry');
-      setEntryCompliance('Complied Pre-Flight Maint. Check in accordance with C172R/S Pre-Flight Maint. Check Form No. AICAT-AMO/AM/002 ISSUE 1 JUNE, REV DATE, 3 APRIL, 2021?');
     }
 
     if (flightType === 'transit') {
       setEntryName('New Transit Flight Maint. Entry');
-      setEntryCompliance('Complied in accordance with C172R/S Transit Check Form AICAT/AM/014 REV. DATE 0/FEB-2021 ISSUE DATE: FEB 2021?');
     }
 
     if (flightType === 'postflight') {
       setEntryName('New Post-Flight Maint. Entry');
-      setEntryCompliance('Complied Post-Flight Maint. Check as per C172R/S Post-Flight Maint. Check Form No. AICAT/AMO/AM/003 Issue. 1 June 2020 Rev. 3 April 2021?');
     }
   }, [flightType]);
 
