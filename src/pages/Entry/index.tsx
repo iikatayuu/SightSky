@@ -44,34 +44,40 @@ const Entry: React.FC = () => {
   const handlePdf = useCallback(async () => {
     const idStr = (parseInt(id) + 1).toString().padStart(4, '0');
     const bytes = await getPDF(idStr, entry);
-    const blob = new Blob([bytes], { type: 'application/pdf' });
-    const filename = `aircraft-entry-${idStr}.pdf`;
-    const writeRes = await Filesystem.writeFile({
-      path: filename,
-      data: blob,
-      directory: Directory.Documents
-    });
-    
-    presentAlert({
-      header: 'Generated successfully!',
-      message: `Your document can be located at ${writeRes.uri}`,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Open file',
-          handler: async () => {
-            await FileOpener.open({
-              filePath: writeRes.uri,
-              contentType: 'application/pdf',
-              openWithDefault: true
-            });
+    const reader = new FileReader();
+    reader.addEventListener('load', async function (e) {
+      const res = reader.result as string;
+      const pdf64 = res.slice(res.indexOf(',') + 1);
+      const filename = `aircraft-entry-${idStr}.pdf`;
+      const writeRes = await Filesystem.writeFile({
+        path: filename,
+        data: pdf64,
+        directory: Directory.Documents
+      });
+
+      presentAlert({
+        header: 'Generated successfully!',
+        message: `Your document can be located at ${writeRes.uri}`,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel'
+          },
+          {
+            text: 'Open file',
+            handler: async () => {
+              await FileOpener.open({
+                filePath: writeRes.uri,
+                contentType: 'application/pdf',
+                openWithDefault: true
+              });
+            }
           }
-        }
-      ]
+        ]
+      });
     });
+
+    reader.readAsDataURL(new Blob([bytes]));
   }, [entry]);
 
   return (

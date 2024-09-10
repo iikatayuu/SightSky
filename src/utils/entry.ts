@@ -1,4 +1,3 @@
-import { CapacitorHttp } from '@capacitor/core';
 import { PageSizes, PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 import type { Entry, FlightType } from '../features/entries/types';
@@ -32,12 +31,9 @@ export async function generatePDF () {
     thickness: 0.5
   });
 
-  const logoRes = await CapacitorHttp.get({
-    url: '/assets/logo.png',
-    responseType: 'arraybuffer'
-  });
-  const logoBytes = logoRes.data as ArrayBuffer;
-  const logoImage = await pdf.embedPng(logoBytes)
+  const logoRes = await fetch('/assets/logo.png')
+  const logoBytes = await logoRes.arrayBuffer();
+  const logoImage = await pdf.embedPng(logoBytes);
   page.drawImage(logoImage, {
     x: 40,
     y: height - 104,
