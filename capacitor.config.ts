@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.alanchen.sightsky',
+  appId: 'me.eidoriantan.sightsky',
   appName: 'SightSky',
   webDir: 'dist'
 };
